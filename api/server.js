@@ -33,7 +33,7 @@ server.use(
     },
     rolling: true,
     resave: false,
-    saveUninitialised: false,
+    saveUninitialized: false,
     store: new Store({
       knex: require("../data/db-config"),
       tablename: "sessions",
