@@ -34,7 +34,7 @@ async function checkUsernameFree(req, res, next) {
     if (!user.length) {
       next()
     } else {
-      next({ message: "Username taken" });
+      next({ status: 422, message: "Username taken" });
     }
   } catch (err) {
     next(err)
@@ -49,8 +49,17 @@ async function checkUsernameFree(req, res, next) {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists(req, res, next) {
-  next();
+async function checkUsernameExists(req, res, next) {
+  try {
+    const user = await User.findBy({ username: req.body.username });
+    if (user.length) {
+      next();
+    } else {
+      next({ status: 401, message: "Invalid credentials" });
+    }
+  } catch (err) {
+    next(err);
+  }
 }
 
 /*
@@ -62,7 +71,15 @@ function checkUsernameExists(req, res, next) {
   }
 */
 function checkPasswordLength(req, res, next) {
-  next();
+  try {
+    if (req.body.password.length < 3 || !req.body.password) {
+      next({ status: 422, message: "Password must be longer than 3 chars" });
+    } else {
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
 }
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
