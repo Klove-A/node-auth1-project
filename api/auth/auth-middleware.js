@@ -25,7 +25,13 @@ function restricted(req, res, next) {
     "message": "Username taken"
   }
 */
-function checkUsernameFree(req, res, next) {}
+function checkUsernameFree(req, res, next) {
+  // if (req.body.username) {
+  //   console.log("g")
+  // } else {
+  //   next({err})
+  // }
+}
 
 /*
   If the username in req.body does NOT exist in the database
