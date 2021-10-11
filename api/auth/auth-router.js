@@ -98,7 +98,7 @@ router.get("/logout", (req, res, next) => {
       if (err) {
         next(err)
       } else {
-        res.json("logged out");
+        res.json({ message: "logged out" });
       }
     });
   } else {
