@@ -1,3 +1,4 @@
+const User = require("../users/users-model");
 /*
   If the user does not have a session saved in the server
 
@@ -7,16 +8,16 @@
   }
 */
 function restricted(req, res, next) {
-  if (req.session.user) {
-    next();
-  } else {
-    next({
-      message: "You shall not pass!",
-      status: 401,
-    });
-  }
+  // if (req.session.user) {
+  //   next();
+  // } else {
+  //   next({
+  //     message: "You shall not pass!",
+  //     status: 401,
+  //   });
+  // }
   console.log("not yet restricted");
-  next()
+  next();
 }
 
 /*
@@ -27,13 +28,17 @@ function restricted(req, res, next) {
     "message": "Username taken"
   }
 */
-function checkUsernameFree(req, res, next) {
-  // if (req.body.username === ) {
-  //   console.log("g")
-  // } else {
-  //   next({err})
-  // }
-  next()
+async function checkUsernameFree(req, res, next) {
+  try {
+    const user = await User.findBy({ username: req.body.username })
+    if (!user) {
+      next()
+    } else {
+      next({ message: "Username taken" });
+    }
+  } catch (err) {
+    next(err)
+  }
 }
 
 /*
