@@ -36,7 +36,7 @@ server.use(
     saveUninitialised: false,
     store: new Store({
       knex: require("../data/db-config"),
-      tablename: "users",
+      tablename: "sessions",
       sidfilename: "sid",
       createtable: true,
       clearInterval: 1000 * 60 * 60,
