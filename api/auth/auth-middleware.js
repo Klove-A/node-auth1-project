@@ -7,14 +7,15 @@
   }
 */
 function restricted(req, res, next) {
-  if (req.session.user) {
-    next();
-  } else {
-    next({
-      message: "You shall not pass!",
-      status: 401,
-    });
-  }
+  // if (req.session.user) {
+  //   next();
+  // } else {
+  //   next({
+  //     message: "You shall not pass!",
+  //     status: 401,
+  //   });
+  // }
+  next()
 }
 
 /*
@@ -31,6 +32,7 @@ function checkUsernameFree(req, res, next) {
   // } else {
   //   next({err})
   // }
+  next()
 }
 
 /*
@@ -41,7 +43,9 @@ function checkUsernameFree(req, res, next) {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists(req, res, next) {}
+function checkUsernameExists(req, res, next) {
+  next();
+}
 
 /*
   If password is missing from req.body, or if it's 3 chars or shorter
@@ -51,7 +55,9 @@ function checkUsernameExists(req, res, next) {}
     "message": "Password must be longer than 3 chars"
   }
 */
-function checkPasswordLength(req, res, next) {}
+function checkPasswordLength(req, res, next) {
+  next();
+}
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
 module.exports = {
