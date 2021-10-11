@@ -8,16 +8,14 @@ const User = require("../users/users-model");
   }
 */
 function restricted(req, res, next) {
-  // if (req.session.user) {
-  //   next();
-  // } else {
-  //   next({
-  //     message: "You shall not pass!",
-  //     status: 401,
-  //   });
-  // }
-  console.log("not yet restricted");
-  next();
+  if (req.session.user) {
+    next();
+  } else {
+    next({
+      message: "You shall not pass!",
+      status: 401,
+    });
+  }
 }
 
 /*
